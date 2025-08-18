@@ -1,0 +1,5 @@
+classic, sidearms, 100
+shorty, sidearms, 150
+frenzy, sidearms, 450
+ghost, sidearms, 500
+sheriff, sidearms, 800
