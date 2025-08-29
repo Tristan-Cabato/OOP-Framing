@@ -13,7 +13,7 @@ import java.awt.*;
  */
 public class Login extends JPanel {
     public Login() {
-        setBackground(Color.BLACK);
+        setBackground(Color.RED);
         add(new buttonCreator("Login"));
         add(new buttonCreator("Sign Up"));
     }
