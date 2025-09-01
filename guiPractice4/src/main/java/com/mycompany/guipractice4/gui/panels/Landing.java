@@ -34,7 +34,7 @@ public class Landing extends JPanel {
 //        JPanel sidebar = SidebarFactory.createNavigationSidebar(250, this::handleSidebarEvent);
 //        add(sidebar, BorderLayout.WEST);
 //        
-        add(sidebarCreator.createNavigationSidebar(250, this::sidebarEvents), BorderLayout.WEST);
+        add(sidebarCreator.createCollapsible(250, 50, this::sidebarEvents), BorderLayout.WEST);
         sidebarEvents("DASHBOARD");
     }
     
@@ -43,6 +43,9 @@ public class Landing extends JPanel {
         switch (text) {
             case "DASHBOARD" -> cardLayout.show(contentPanel, "DASHBOARD");
             case "PROFILE" -> cardLayout.show(contentPanel, "PROFILE");
+            case "ABOUT" -> cardLayout.show(contentPanel, "ABOUT");
+            case "SETTING" -> cardLayout.show(contentPanel, "SETTING");
+            case "LOGOUT" -> cardLayout.show(contentPanel, "LOGOUT");
             default -> System.out.println("sybau");
         }
     }

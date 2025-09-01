@@ -3,10 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.guipractice4.gui.components;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.function.*;
+import javax.swing.*;
 /**
  *
  * @author tcabato
@@ -22,13 +22,14 @@ public class sidebarCreator {
         panel.setPreferredSize(new Dimension(width, Integer.MAX_VALUE)); // Watch for this
         panel.setMaximumSize(new Dimension(width, Integer.MAX_VALUE));
         panel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 1));
-        
-        addItem(panel, "dashboard", "👅💕💦💦", onItemClick);
-        addItem(panel, "profile", "🍆🍆💦🐃", onItemClick);
+
+        addItem(panel, "Dashboard", "📦", onItemClick);
+        addItem(panel, "Profile", "👲", onItemClick);
         
         return panel;
     }
     
+    // Add Navigation Item
     private static void addItem(JPanel panel, String text, String icon, Consumer<String> onItemClick) {
         JButton button = new JButton(text + " " + icon);
         button.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -59,5 +60,42 @@ public class sidebarCreator {
         
         panel.add(button);
         panel.add(Box.createRigidArea(new Dimension(0, 5)));
+    }
+    
+    public static JPanel createCollapsible(int expandedWidth, int collapsedWidth, Consumer<String> onItemClick) {
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setPreferredSize(new Dimension(expandedWidth, Integer.MAX_VALUE));
+        panel.setBackground(DEFAULT_BG);
+        
+        JButton button = new JButton("≡");
+        button.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        button.setContentAreaFilled(false);
+        button.setFocusPainted(false);
+        
+        JPanel contentPanel = new JPanel();
+        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
+        contentPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 5));
+
+                
+        addItem(contentPanel, "Dashboard", "📦", onItemClick);
+        addItem(contentPanel, "Profile", "👲", onItemClick);
+        addItem(contentPanel, "About", "❓", onItemClick);
+        addItem(contentPanel, "Setting", "⚙️", onItemClick);
+        addItem(contentPanel, "Logout", "👋", onItemClick);
+
+        panel.add(button, BorderLayout.NORTH);
+        panel.add(contentPanel, BorderLayout.CENTER);
+
+        button.addActionListener(e -> {
+            boolean isCollapsed = panel.getWidth() == collapsedWidth;
+            int newWidth = isCollapsed ? expandedWidth : collapsedWidth;
+            panel.setPreferredSize(new Dimension(newWidth, Integer.MAX_VALUE));
+            button.setText(isCollapsed ? "📂" : "📁");
+            contentPanel.setVisible(isCollapsed);
+            
+            panel.revalidate();
+            panel.repaint();
+        });
+        return panel;
     }
 }
