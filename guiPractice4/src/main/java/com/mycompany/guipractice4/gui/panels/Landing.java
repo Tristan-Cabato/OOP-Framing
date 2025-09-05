@@ -6,6 +6,7 @@ package com.mycompany.guipractice4.gui.panels;
 import com.mycompany.guipractice4.gui.components.sidebarCreator;
 import com.mycompany.guipractice4.gui.panels.landingPanels.dashboard;
 import com.mycompany.guipractice4.gui.panels.landingPanels.profile;
+import com.mycompany.guipractice4.utils.ThemePanel;
 import javax.swing.*;
 import java.awt.*;
 /**
@@ -13,13 +14,13 @@ import java.awt.*;
  * @author tcabato
  */
 public class Landing extends JPanel {
-    private CardLayout cardLayout;
-    private JPanel contentPanel;
+    private final CardLayout cardLayout;
+    private final JPanel contentPanel;
     
     
     public Landing() {
         cardLayout = new CardLayout();
-        contentPanel = new JPanel(cardLayout);
+        contentPanel = new ThemePanel(cardLayout);
         
         initializePanel();
     }

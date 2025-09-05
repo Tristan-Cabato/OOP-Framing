@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.guipractice4.gui.components;
-import com.mycompany.guipractice4.gui.mainFrame;
 import javax.swing.*;
 import java.awt.*;
 
@@ -13,13 +12,16 @@ import java.awt.*;
  */
 public class buttonCreator extends JButton {
     public buttonCreator(String text) {
+        this(text, () -> {});
+    }
+    public buttonCreator(String text, Runnable onClick) {
         setPreferredSize(new Dimension(200,20));
         setBackground(Color.WHITE);
         setFocusable(false);
         setText(text);
         
         addActionListener(var -> {
-            mainFrame.showCard("Landing");
+            onClick.run();
         });
     }
 }

@@ -1,50 +1,60 @@
 package com.mycompany.guipractice4.gui;
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-import com.mycompany.guipractice4.gui.panels.*;
-import javax.swing.*;
-import java.awt.*;
-/**
- *
- * @author tcabato
- */
-public class mainFrame extends JFrame {
-    private static CardLayout cardLayout;
-    private static JPanel mainPanel;
-    
-    
-    public mainFrame() {
+
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Toolkit;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import com.mycompany.guipractice4.gui.panels.Login;
+import com.mycompany.guipractice4.gui.panels.Landing;
+import com.mycompany.guipractice4.utils.*;
+
+public class mainFrame extends JFrame{
+    private JPanel mainPanel;
+    private CardLayout cardLayout;
+    private Dimension screenSize;
+    private int screenWidth;
+    private int screenHeight;
+
+    public mainFrame(){
         initializeFrame();
         setupUI();
+        ThemeManager.getInstance().applyThemeToContainer(this);
     }
-    
-    private void initializeFrame() {
-        setTitle("Gui Practice");
+
+    private void initializeFrame(){
+        setTitle("Practice");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setMinimumSize(new Dimension(800, 600));
+
         setLocationRelativeTo(null);
-        setResizable(true);
-        setMinimumSize(new Dimension(20,200));
-        setBackground(Color.BLACK);
-        
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        setSize(screenSize.width * 3/4, screenSize.height * 3/4);
+
+        screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        screenWidth = screenSize.width * 1/2;
+        screenHeight = screenSize.height * 2/3;
+        setSize(screenWidth, screenHeight);
     }
-    
-    private void setupUI() {
+
+    private void setupUI(){
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
-        
-        mainPanel.add(new Login(), "LOGIN");
-        mainPanel.add(new Landing(), "Landing");
-        
-        // setLayout(cardLayout);  Panel cant contain cards???
-        setContentPane(mainPanel);
-        showCard("Login");
+
+        JPanel topPanel = new ThemePanel(new FlowLayout(FlowLayout.RIGHT));
+        topPanel.add(new DarkModeToggle());
+        add(topPanel, BorderLayout.NORTH);
+
+        mainPanel.add(new Login(() -> showPanel("LANDING")), "LOGIN");
+        mainPanel.add(new Landing(), "LANDING");
+
+        add(mainPanel, BorderLayout.CENTER);
+        showPanel("LOGIN");
     }
-    
-    public static void showCard(String text) {
-        cardLayout.show(mainPanel, text);
+
+    public void showPanel(String panelName) {
+        cardLayout.show(mainPanel, panelName);
     }
 }

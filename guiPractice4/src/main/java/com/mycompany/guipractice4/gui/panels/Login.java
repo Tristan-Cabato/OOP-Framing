@@ -12,10 +12,13 @@ import java.awt.*;
  * @author tcabato
  */
 public class Login extends JPanel {
-    public Login() {
+    private final Runnable onLogin;
+
+    public Login(Runnable onLogin) {
+        this.onLogin = onLogin;
         setBackground(Color.RED);
-        add(new buttonCreator("Login"));
-        add(new buttonCreator("Sign Up"));
+        add(new buttonCreator("Login", this.onLogin));
+        add(new buttonCreator("Sign Up", () -> {}));
     }
     
     public JButton createButton(String text) {

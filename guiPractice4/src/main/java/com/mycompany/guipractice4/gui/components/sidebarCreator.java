@@ -12,8 +12,8 @@ import javax.swing.*;
  * @author tcabato
  */
 public class sidebarCreator {
-    private static Color DEFAULT_BG = Color.GRAY;
-    private static Color HIGHLIGHTED = new Color(200, 200, 200);
+    private final static Color DEFAULT_BG = Color.GRAY;
+    private final static Color HIGHLIGHTED = new Color(200, 200, 200);
             
     public static JPanel createNavigationSidebar(int width, Consumer<String> onItemClick) {
         JPanel panel = new JPanel();
@@ -43,18 +43,20 @@ public class sidebarCreator {
         button.setFocusPainted(false);
         
         button.addMouseListener(new MouseAdapter() {
+            @Override
             public void mouseEntered(MouseEvent e) {
                 button.setBackground(HIGHLIGHTED);
                 button.setOpaque(true);
             }
             
+            @Override
             public void mouseExited(MouseEvent e) {
                 button.setBackground(null);
                 button.setOpaque(false);
             }
         });
         
-        button.addActionListener(e -> {
+        button.addActionListener(_ -> {
             onItemClick.accept(text.toUpperCase());
         }); // Method referencing
         
@@ -86,7 +88,7 @@ public class sidebarCreator {
         panel.add(button, BorderLayout.NORTH);
         panel.add(contentPanel, BorderLayout.CENTER);
 
-        button.addActionListener(e -> {
+        button.addActionListener(_ -> {
             boolean isCollapsed = panel.getWidth() == collapsedWidth;
             int newWidth = isCollapsed ? expandedWidth : collapsedWidth;
             panel.setPreferredSize(new Dimension(newWidth, Integer.MAX_VALUE));
